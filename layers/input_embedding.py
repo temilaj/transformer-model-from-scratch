@@ -3,7 +3,6 @@ import math
 
 class InputEmbedding(nn.Module):
 
-    
     def __init__(self, d_model: int, vocab_size: int) -> None:
         """
             d_model: dimension of the vector in the model
