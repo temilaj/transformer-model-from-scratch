@@ -236,7 +236,13 @@ def train_model(config):
     loss_fn = nn.CrossEntropyLoss(ignore_index=tokenizer_src.token_to_id('[PAD]'), label_smoothing=0.1).to(device)
 
     for epoch in range(initial_epoch, config['num_epochs']):
-        torch.cuda.empty_cache()
+        # Clear memory at the start of each epoch
+        if device.type in ['cuda', 'mps']:
+            if device.type == 'cuda':
+                torch.cuda.empty_cache()
+            elif device.type == 'mps':
+                torch.mps.empty_cache()
+
         model.train()
         batch_iterator = tqdm(train_dataloader, desc=f"Processing Epoch {epoch:02d}")
         for batch in batch_iterator:
