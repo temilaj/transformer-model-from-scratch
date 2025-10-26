@@ -1,1 +1,4 @@
 transformer-env/
+__pycache__/
+.DS_STORE
+runs/*
